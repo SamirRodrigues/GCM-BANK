@@ -38,15 +38,16 @@ void run() {
             std::cin >> accountNumber;
             std::cout << "Informe valor a ser debitado: ";
             std::cin >> moneyAccount;
+            GCMBank.DebitAccount(accountNumber, moneyAccount);
             std::cout << "Novo saldo na conta " << accountNumber << ": " << GCMBank.GetBalance(accountNumber);
         } else if (option == 5) {
-            std::cout << "Informe conta a ser creditada: ";
-            std::cin >> accountNumber;
             std::cout << "Informe conta a ser debitada: ";
             std::cin >> accountNumberDebit;
+            std::cout << "Informe conta a ser creditada: ";
+            std::cin >> accountNumber;
             std::cout << "Insira o valor a ser transferido: ";
             std::cin >> moneyAccount;
-            GCMBank.Transfer(accountNumber, accountNumberDebit, moneyAccount);
+            GCMBank.Transfer(accountNumberDebit, accountNumber, moneyAccount);
         } else if (option == 0) {
             std::cout << "Saindo..." << std::endl;
         } else {
