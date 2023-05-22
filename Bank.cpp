@@ -11,10 +11,21 @@ public:
   {
   }
 
-  void AddAccount(int accountNumber)
-  {
-    Account account(accountNumber);
+  void AddAccount(int accountNumber, int accountType, float initialBalance) {
+    if(accountType != 1)
+    {
+        initialBalance = 0;
+    }
+      
+    Account account(accountNumber, accountType, initialBalance);
+   
+    if(accountType == 2){
+      int points = 10;
+      account.AddPoints(points);
+    }
+    
     accounts.push_back(account);
+
   }
 
   float GetBalance(int accountNumber)
@@ -24,11 +35,20 @@ public:
     return account->GetBalance();
   }
 
-  void CreditAccount(int accountNumber, int value)
-  {
+  void CreditAccount(int accountNumber, int value) {
     std::list<Account>::iterator account;
     account = FindAccount(accountNumber);
-    account->Credit(value);
+    if (value < 0) {
+      std::cout << "Valor informado não pode ser negativo, favor realizar operação novamente" << std::endl;
+    }
+    else {
+      account->Credit(value);
+    }
+
+    if (account->GetType() == 2) {
+      int points = value / 100;
+      account->AddPoints(points);
+    }
   }
 
   void DebitAccount(int accountNumber, int value)
@@ -55,23 +75,35 @@ public:
 
     return it_end;
   }
-  bool Transfer(int accountNumberDebit, int accountNumberCredit, int amount)
-  {
-    std::list<Account>::iterator accountCredit = FindAccount(accountNumberCredit);
-    std::list<Account>::iterator accountDebit = FindAccount(accountNumberDebit);
 
-    if (accountCredit->GetNumber() == accountNULL.GetNumber() || accountDebit->GetNumber() == accountNULL.GetNumber())
+  bool Transfer(int accountNumberDebit, int accountNumberCredit, int amount) {
+    // account debit -> conta que será debitada
+    std::list<Account>::iterator accountDebit = FindAccount(accountNumberDebit);
+    // account credit -> conta que será creditada
+    std::list<Account>::iterator accountCredit = FindAccount(accountNumberCredit);
+
+    if (accountDebit->GetBalance() < amount)
+    {
+      std::cout << "A conta de origem não possui saldo suficiente, favor realizar operação com valor válido" << std::endl;
+      return false;
+    }
+
+    if (accountCredit->GetNumber() == 0 || accountDebit->GetNumber() == 0)
     {
       std::cout << "Conta Não Cadastrada!" << std::endl;
       return false;
     }
 
-    if(accountDebit->GetBalance() > amount) {
-      accountDebit->Debit(amount);
-      accountCredit->Credit(amount);
-    } else {
-      std::cout << "Saldo em conta de débito insuficiente!" << std::endl;
+    accountDebit->Debit(amount);
+    accountCredit->Credit(amount);
+
+    if(accountCredit->GetType() == 2){
+
+      int points = amount / 200;
+      accountCredit->AddPoints(points);
+      
     }
-      return true;
-    }
+
+    return true;
+  }
   };
