@@ -7,6 +7,7 @@ void CadastrarConta(Bank *bank) {
   std::cout << "Escolha o Tipo de Conta" << std::endl;
   std::cout << "1- Conta Comum" << std::endl;
   std::cout << "2- Conta Bonus" << std::endl;
+  std::cout << "3- Conta Poupança" << std::endl;
   std::cout << "=> ";
 
   std::cin >> accountType;
@@ -38,6 +39,17 @@ void Creditar(Bank *bank) {
   std::cout << value << " Creditado com sucesso" << std::endl;
 }
 
+void RenderJuros(Bank *bank){
+  int accountNumber;
+  float value;
+  std::cout << "Digite o Número da Conta" << std::endl;
+  std::cout << "=> ";
+  std::cin >> accountNumber;
+  std::cout << "Digite a taxa de juros para ser calculado a conta " << accountNumber << ": ";
+  std::cin >> value;
+  bank->ApplyYield(accountNumber, value);
+}
+
 void run() {
     Bank GCMBank;
     int option = 1;
@@ -51,6 +63,7 @@ void run() {
         std::cout << "3 - Crédito de Conta" << std::endl;
         std::cout << "4 - Débito de conta" << std::endl;
         std::cout << "5 - Transferiência entre contas" << std::endl;
+        std::cout << "6 - Render Juros" << std::endl;
         std::cout << "0 - Sair" << std::endl;
         std::cout << "=> ";
         std::cin >> option;
@@ -92,6 +105,8 @@ void run() {
                 }
             }
             GCMBank.Transfer(accountNumberDebit, accountNumber, moneyAccount);
+        } else if (option == 6) {
+            RenderJuros(&GCMBank);
         } else if (option == 0) {
             std::cout << "Saindo..." << std::endl;
         } else {

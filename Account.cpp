@@ -65,4 +65,8 @@ public:
   int GetType() {
     return accountType;
   }
+
+  void Yield(float amount) {
+    balance += ((balance * amount) / 100);
+  }
 };
