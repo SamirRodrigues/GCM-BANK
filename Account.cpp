@@ -1,23 +1,39 @@
 #include <iostream>
 
-class Account
-{
+class Account {
 private:
   int number;
   float balance;
+  int points;
+  int accountType;
 
 public:
-  Account()
-  {
+
+  Account() {
     number = 0;
     balance = 0.0f;
   }
 
-  Account(int acountNumber)
-  {
-    number = acountNumber;
-    balance = 0.0f;
+  Account (int accountNumber) {
+    number = accountNumber;
+    balance= 0.0f;
   }
+
+  Account(int accountNumber, int typeOfAccount) {
+    number = accountNumber;
+    balance = 0.0f;
+    accountType = typeOfAccount;
+    points = 0;
+  }
+ 
+  Account(int accountNumber, int typeOfAccount, float initialBalance) {
+    number = accountNumber;
+    balance = initialBalance;
+    accountType = typeOfAccount;
+    points = 0;
+  }
+
+  ~Account() {}
 
   int GetNumber()
   {
@@ -39,5 +55,14 @@ public:
     } else {
       std::cout << "Saldo em conta insuficiente!" << std::endl;
     }
+  }
+
+  void AddPoints(int pointsAmount) {
+    points += pointsAmount;
+    std::cout << "Novo saldo de pontos na conta é: " << points << std::endl;
+  }
+
+  int GetType() {
+    return accountType;
   }
 };

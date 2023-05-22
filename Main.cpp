@@ -1,5 +1,43 @@
 #include "Bank.cpp"
 
+void CadastrarConta(Bank *bank) {
+  int accountType;
+  float initialBalance;
+
+  std::cout << "Escolha o Tipo de Conta" << std::endl;
+  std::cout << "1- Conta Comum" << std::endl;
+  std::cout << "2- Conta Bonus" << std::endl;
+  std::cout << "=> ";
+
+  std::cin >> accountType;
+
+  int accountNumber;
+
+  std::cout << "Digite o Número da Conta" << std::endl;
+  std::cout << "=> ";
+  std::cin >> accountNumber;
+  
+  if(accountType != 2){
+    std::cout << "Qual o saldo inicial?" << std::endl;
+    std::cin >> initialBalance;
+  }
+  
+  bank->AddAccount(accountNumber, accountType, initialBalance);
+  std::cout << "Conta Cadastrada Com Sucesso!" << std::endl;
+}
+
+void Creditar(Bank *bank) {
+  int accountNumber;
+  int value;
+  std::cout << "Digite o Número da Conta" << std::endl;
+  std::cout << "=> ";
+  std::cin >> accountNumber;
+  std::cout << "Digite o valor a ser Creditado na conta " << accountNumber << ": ";
+  std::cin >> value;
+  bank->CreditAccount(accountNumber, value);
+  std::cout << value << " Creditado com sucesso" << std::endl;
+}
+
 void run() {
     Bank GCMBank;
     int option = 1;
@@ -18,28 +56,13 @@ void run() {
         std::cin >> option;
 
         if(option == 1) {
-            std::cout << "Insira um número para a conta: ";
-            std::cin >> accountNumber;
-            GCMBank.AddAccount(accountNumber);
-            std::cout << "Conta adicionada!" << std::endl;
+            CadastrarConta(&GCMBank);
         } else if (option == 2) {
             std::cout << "Informe o número da conta a ser consultada: ";
             std::cin >> accountNumber;
             std::cout << "Saldo da Conta " << accountNumber << ": " << GCMBank.GetBalance(accountNumber) << std::endl;
         } else if (option == 3) {
-            std::cout << "Informe o número de conta a ser creditada: ";
-            std::cin >> accountNumber;
-            std::cout << "Insira o valor de crédito: ";
-            std::cin >> moneyAccount;
-            if(moneyAccount < 0) {
-                while(moneyAccount < 0) {
-                    std::cout << "Valor não pode ser negativo, tente novamente!" << std::endl;
-                    std::cout << "Insira o valor de crédito: ";
-                    std::cin >> moneyAccount;
-                }
-            }
-            GCMBank.CreditAccount(accountNumber, moneyAccount);
-            std::cout << "Novo saldo na conta " << accountNumber << ": " << GCMBank.GetBalance(accountNumber);
+            Creditar(&GCMBank);
         } else if (option == 4) {
             std::cout << "Informe númeração da conta a ser debitada: ";
             std::cin >> accountNumber;
