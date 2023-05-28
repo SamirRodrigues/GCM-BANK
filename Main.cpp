@@ -1,16 +1,38 @@
 #include "src/Bank.cpp"
 
+enum accountTypes
+  {
+    SIMPLE = 1,
+    BONUS,
+    SAVINGS
+  } 
+
 void CadastrarConta(Bank *bank) {
   int accountType;
   float initialBalance;
 
-  std::cout << "Escolha o Tipo de Conta" << std::endl;
-  std::cout << "1- Conta Comum" << std::endl;
-  std::cout << "2- Conta Bonus" << std::endl;
-  std::cout << "3- Conta Poupança" << std::endl;
-  std::cout << "=> ";
+  while (true)
+  {
+    
+    std::cout << "Escolha o Tipo de Conta" << std::endl;
+    std::cout << "1- Conta Comum" << std::endl;
+    std::cout << "2- Conta Bonus" << std::endl;
+    std::cout << "3- Conta Poupança" << std::endl;
+    std::cout << "=> ";    
 
-  std::cin >> accountType;
+    std::cin >> accountType;
+    std::cout << std::endl; 
+
+   if(accountType != SIMPLE && accountType != BONUS && accountType != SAVINGS)
+    {
+      std::cout << ">>> Favor informar um tipo de conta válido <<<" << std::endl; 
+      std::cout << std::endl;     
+    }
+    else
+    {
+        break;
+    }
+  }  
 
   int accountNumber;
 
@@ -18,9 +40,14 @@ void CadastrarConta(Bank *bank) {
   std::cout << "=> ";
   std::cin >> accountNumber;
   
-  if(accountType != 2){
+  if(accountType == SAVINGS)
+  {
     std::cout << "Qual o saldo inicial?" << std::endl;
     std::cin >> initialBalance;
+  }
+  else
+  {
+    initialBalance = 0;
   }
   
   bank->AddAccount(accountNumber, accountType, initialBalance);
