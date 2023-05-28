@@ -1,19 +1,19 @@
 // #include <iostream>
 #include "Account.cpp"
 
-class BonusAccount : Account
+class SavingsAccount : Account
 {
 protected:
   int points;
 
 public:
-  BonusAccount() : Account()
+  SavingsAccount() : Account()
   {
   }
-  BonusAccount(int accountNumber) : Account(accountNumber) {
+  SavingsAccount(int accountNumber) : Account(accountNumber) {
     points = 10;
   }
-  ~BonusAccount() { }
+  ~SavingsAccount() { }
   void AddPoints(int pointsAmount) {
     points += pointsAmount;
   }

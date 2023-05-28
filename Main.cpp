@@ -1,4 +1,4 @@
-#include "Bank.cpp"
+#include "src/Bank.cpp"
 
 void CadastrarConta(Bank *bank) {
   int accountType;
