@@ -6,48 +6,71 @@
 class Bank
 {
 private:
-public:
   std::list<Account> accounts;
-  Account accountNULL;
-  Bank()
-  {
-  }
+  std::list<Account>::iterator account;
 
-  void AddAccount(int accountNumber, int accountType, float initialBalance) {
-    if(accountType != 1)
+  enum accountTypes
+  {
+    SIMPLE = 1,
+    BONUS,
+    SAVINGS
+  } 
+  
+public:
+
+
+
+  Bank()  {  }
+
+  ~Bank()  {  }
+
+  bool AddAccount(int accountNumber, int accountType, float initialBalance)
+  {   
+
+    switch (accountType)
     {
-        initialBalance = 0;
-    }
+      case SIMPLE
+      Account account(accountNumber, accountType, initialBalance);
+        break;
       
-    Account account(accountNumber, accountType, initialBalance);
-   
-    if(accountType == 2){
-      int points = 10;
-      account.AddPoints(points);
+      case BONUS
+      Account account(accountNumber, accountType, initialBalance);
+      account.AddPoints(10);
+        break;
+      
+      case SAVINGS;
+      Account account(accountNumber, accountType, initialBalance);
+        break;
+
+      default:
+        break;
     }
-    
+
     accounts.push_back(account);
 
+    return true;
   }
 
   float GetBalance(int accountNumber)
   {
-    std::list<Account>::iterator account;
     account = FindAccount(accountNumber);
     return account->GetBalance();
   }
 
-  void CreditAccount(int accountNumber, int value) {
-    std::list<Account>::iterator account;
+  void CreditAccount(int accountNumber, int value)
+  {
     account = FindAccount(accountNumber);
-    if (value < 0) {
+    if (value < 0)
+    {
       std::cout << "Valor informado não pode ser negativo, favor realizar operação novamente" << std::endl;
     }
-    else {
+    else
+    {
       account->Credit(value);
     }
 
-    if (account->GetType() == 2) {
+    if (account->GetType() == BONUS)
+    {
       int points = value / 100;
       account->AddPoints(points);
     }
@@ -55,7 +78,7 @@ public:
 
   void DebitAccount(int accountNumber, int value)
   {
-    std::list<Account>::iterator account;
+    
     account = FindAccount(accountNumber);
     account->Debit(value);
   }
@@ -78,7 +101,8 @@ public:
     return it_end;
   }
 
-  bool Transfer(int accountNumberDebit, int accountNumberCredit, int amount) {
+  bool Transfer(int accountNumberDebit, int accountNumberCredit, int amount)
+  {
     // account debit -> conta que será debitada
     std::list<Account>::iterator accountDebit = FindAccount(accountNumberDebit);
     // account credit -> conta que será creditada
@@ -99,26 +123,28 @@ public:
     accountDebit->Debit(amount);
     accountCredit->Credit(amount);
 
-    if(accountCredit->GetType() == 2){
+    if (accountCredit->GetType() == BONUS)
+    {
 
       int points = amount / 200;
       accountCredit->AddPoints(points);
-      
     }
 
     return true;
   }
 
-  void ApplyYield(int accountNumber, float value) {
-    std::list<Account>::iterator account;
+  void ApplyYield(int accountNumber, float value)
+  {
     account = FindAccount(accountNumber);
 
-    if (account->GetType() == 3) {
+    if (account->GetType() == SAVINGS)
+    {
       account->Yield(value);
       std::cout << "Juros Aplicado com Sucesso" << std::endl;
     }
-    else {
+    else
+    {
       std::cout << "É preciso Possuir uma Conta Poupança para Render Juros" << std::endl;
     }
   }
-  };
+};

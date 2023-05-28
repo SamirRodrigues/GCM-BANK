@@ -1,11 +1,17 @@
 #include <iostream>
 
 class Account {
-private:
+protected:
   int number;
   float balance;
   int points;
-  int accountType;
+  
+  enum accountType
+  {
+    simple = 1,
+    bonus,
+    savings
+  }
 
 public:
 
