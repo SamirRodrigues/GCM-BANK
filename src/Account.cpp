@@ -24,6 +24,11 @@ Account::Account(int accountNumber, int typeOfAccount, float initialBalance) {
   points = 0;
 }
 
+Account::Account(int accountNumber,  float initialBalance) {
+  number = accountNumber;
+  balance = initialBalance;
+}
+
 Account::~Account() {}
 
 int Account::GetNumber() {

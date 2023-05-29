@@ -40,7 +40,7 @@ void CadastrarConta(Bank *bank) {
   std::cout << "=> ";
   std::cin >> accountNumber;
   
-  if(accountType == SAVINGS)
+  if(accountType == SAVINGS || accountType == SIMPLE )
   {
     std::cout << "Qual o saldo inicial?" << std::endl;
     std::cin >> initialBalance;
@@ -97,17 +97,7 @@ void run() {
         std::cin >> option;
 
         if(option == 1) {
-<<<<<<< HEAD
             CadastrarConta(&GCMBank);
-=======
-            std::cout << "Insira um número para a conta: ";
-            std::cin >> accountNumber;
-            std::cout << "Insira o valor inicial da conta: ";
-            std::cin >> initialBalance;
-            bank->AddAccount(accountNumber, initialBalance);
-            std::cout << "Conta Cadastrada Com Sucesso!" << std::endl;
-            std::cout << "Conta adicionada!" << std::endl;
->>>>>>> hotfix/initialBalanceSimpleAccount
         } else if (option == 2) {
             std::cout << "Informe o número da conta a ser consultada: ";
             std::cin >> accountNumber;

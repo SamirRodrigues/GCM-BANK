@@ -15,6 +15,7 @@ public:
   Account();
   Account(int accountNumber);
   Account(int accountNumber, int typeOfAccount);
+  Account(int accountNumber, float initialBalance);
   Account(int accountNumber, int typeOfAccount, float initialBalance);
   ~Account();
 
