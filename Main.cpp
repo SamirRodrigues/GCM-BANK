@@ -51,9 +51,10 @@ void RenderJuros(Bank *bank){
 }
 
 void run() {
+
     Bank GCMBank;
     int option = 1;
-    int accountNumber,accountNumberDebit , moneyAccount;
+    int accountNumber,accountNumberDebit , moneyAccount, initialBalance;
 
     while(option != 0) {
         std::cout << std::endl << "==============================" << std::endl;
@@ -69,7 +70,17 @@ void run() {
         std::cin >> option;
 
         if(option == 1) {
+<<<<<<< HEAD
             CadastrarConta(&GCMBank);
+=======
+            std::cout << "Insira um número para a conta: ";
+            std::cin >> accountNumber;
+            std::cout << "Insira o valor inicial da conta: ";
+            std::cin >> initialBalance;
+            bank->AddAccount(accountNumber, initialBalance);
+            std::cout << "Conta Cadastrada Com Sucesso!" << std::endl;
+            std::cout << "Conta adicionada!" << std::endl;
+>>>>>>> hotfix/initialBalanceSimpleAccount
         } else if (option == 2) {
             std::cout << "Informe o número da conta a ser consultada: ";
             std::cin >> accountNumber;
