@@ -34,12 +34,12 @@ public:
         break;
       
       case BONUS
-      Account account(accountNumber, accountType, initialBalance);
+      BonusAccount account(accountNumber, accountType, initialBalance);
       account.AddPoints(10);
         break;
       
       case SAVINGS;
-      Account account(accountNumber, accountType, initialBalance);
+      SavingsAccount account(accountNumber, accountType, initialBalance);
         break;
 
       default:

@@ -5,14 +5,8 @@ protected:
   int number;
   float balance;
   int points;
+  float negativeLimit = -1000.00;
   
-  enum accountType
-  {
-    simple = 1,
-    bonus,
-    savings
-  }
-
 public:
 
   Account() {
@@ -58,7 +52,13 @@ public:
   void Debit(int amount) {
     if(amount <= balance) {
       balance -= amount;
-    } else {
+    } if(amount >= balance) {
+        if(amount - balance <= negativeLimit){
+          balance -= amount;
+        } else{
+          std::cout << "Não é possível debitar da sua conta. Seu limite de transferência é "<< balance + (negativeLimit * (-1)) << std::endl;
+        }
+
       std::cout << "Saldo em conta insuficiente!" << std::endl;
     }
   }
