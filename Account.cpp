@@ -19,6 +19,11 @@ public:
     balance = 0.0f;
   }
 
+  Account(int accountNumber, float initialBalance) {
+    number = accountNumber;
+    balance = initialBalance;
+  }
+  
   int GetNumber()
   {
     return number;
