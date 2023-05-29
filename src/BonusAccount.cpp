@@ -1,23 +1,17 @@
-// #include <iostream>
-#include "Account.cpp"
+#include "../libs/BonusAccount.hpp"
 
-class BonusAccount : Account
-{
-protected:
-  int points;
+BonusAccount::BonusAccount() : Account() {}
 
-public:
-  BonusAccount() : Account()
-  {
-  }
-  BonusAccount(int accountNumber) : Account(accountNumber) {
-    points = 10;
-  }
-  ~BonusAccount() { }
-  void AddPoints(int pointsAmount) {
-    points += pointsAmount;
-  }
-  int GetPoints() const {
-    return points;
-  }
-};
+BonusAccount::BonusAccount(int accountNumber) : Account(accountNumber) {
+  points = 10;
+}
+
+BonusAccount::~BonusAccount() {}
+
+void BonusAccount::AddPoints(int pointsAmount) {
+  points += pointsAmount;
+}
+
+int BonusAccount::GetPoints() const {
+  return points;
+}

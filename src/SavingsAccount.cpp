@@ -1,30 +1,25 @@
-// #include <iostream>
-#include "Account.cpp"
+#include "../libs/SavingsAccount.hpp"
 
-class SavingsAccount : Account
-{
-protected:
-  int points;
+SavingsAccount::SavingsAccount() : Account() {}
 
-public:
-  SavingsAccount() : Account()
-  {
+SavingsAccount::SavingsAccount(int accountNumber) : Account(accountNumber) {
+  points = 10;
+}
+
+SavingsAccount::~SavingsAccount() {}
+
+void SavingsAccount::AddPoints(int pointsAmount) {
+  points += pointsAmount;
+}
+
+void SavingsAccount::Debit(int amount) {
+  if (amount <= balance) {
+    balance -= amount;
+  } else {
+    std::cout << "Saldo em conta insuficiente!" << std::endl;
   }
-  SavingsAccount(int accountNumber) : Account(accountNumber) {
-    points = 10;
-  }
-  ~SavingsAccount() { }
-  void AddPoints(int pointsAmount) {
-    points += pointsAmount;
-  }
-  void Debit(int amount) {
-    if(amount <= balance) {
-      balance -= amount;
-    }else{
-      std::cout << "Saldo em conta insuficiente!" << std::endl;
-    }
-  }
-  int GetPoints() const {
-    return points;
-  }
-};
+}
+
+int SavingsAccount::GetPoints() const {
+  return points;
+}

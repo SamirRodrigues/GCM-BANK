@@ -1,24 +1,22 @@
 CXX = g++
 CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -fsanitize=address
-LDFLAGS =  -fsanitize=address
+LDFLAGS = -fsanitize=address
 
-SRC = Account.cpp Bank.cpp Main.cpp BonusAccount.cpp
-# SRCTEST = Account.cpp Bank.cpp test/test.cpp
-OBJ = $(SRC:.cc=.o)
-OBJTEST = $(SRCTEST:.cc=.o)
+SRC = Main.cpp src/Account.cpp src/Bank.cpp src/BonusAccount.cpp src/SavingsAccount.cpp
+OBJ = $(SRC:.cpp=.o)
 EXEC = run
-EXECTEST = runtest
 
-# all: $(EXEC)
+#SRCTEST = Test.cpp src/Account.cpp src/Bank.cpp src/BonusAccount.cpp src/SavingsAccount.cpp
+#OBJTEST = $(SRCTEST:.cpp=.o)
+#EXECTEST = test
+
+all: $(EXEC) #$(EXECTEST)
 
 $(EXEC): $(OBJ)
-	$(CXX) $(LDFLAGS) -o $@ $(OBJ) $(LBLIBS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJ)
 
-# all: $(EXECTEST)
-
-# $(EXECTEST): $(OBJTEST)
-# 	$(CXX) $(LDFLAGS) -o $@ $(OBJTEST) $(LBLIBSTEST)
+#$(EXECTEST): $(OBJTEST)
+#	$(CXX) $(LDFLAGS) -o $@ $(OBJTEST)
 
 clean:
-	rm -rf $(OBJ) $(EXEC)
-	rm -rf $(OBJTEST) $(EXECTEST)
+	rm -rf $(OBJ) $(EXEC) $(OBJTEST) $(EXECTEST)

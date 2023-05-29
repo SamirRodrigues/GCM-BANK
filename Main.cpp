@@ -1,11 +1,11 @@
-#include "src/Bank.cpp"
+#include "libs/Bank.hpp"
 
 enum accountTypes
-  {
-    SIMPLE = 1,
-    BONUS,
-    SAVINGS
-  } 
+{
+  SIMPLE = 1,
+  BONUS = 2,
+  SAVINGS = 3
+}; 
 
 void CadastrarConta(Bank *bank) {
   int accountType;
