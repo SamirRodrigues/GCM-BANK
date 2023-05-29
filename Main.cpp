@@ -3,16 +3,15 @@
 void CadastrarConta(Bank *bank) {
   int accountType;
   float initialBalance;
+  int accountNumber;
 
   std::cout << "Escolha o Tipo de Conta" << std::endl;
-  std::cout << "1- Conta Comum" << std::endl;
+  std::cout << "1- Conta Simples" << std::endl;
   std::cout << "2- Conta Bonus" << std::endl;
   std::cout << "3- Conta Poupança" << std::endl;
   std::cout << "=> ";
 
-  std::cin >> accountType;
-
-  int accountNumber;
+  std::cin >> accountType;  
 
   std::cout << "Digite o Número da Conta" << std::endl;
   std::cout << "=> ";
@@ -70,17 +69,7 @@ void run() {
         std::cin >> option;
 
         if(option == 1) {
-<<<<<<< HEAD
             CadastrarConta(&GCMBank);
-=======
-            std::cout << "Insira um número para a conta: ";
-            std::cin >> accountNumber;
-            std::cout << "Insira o valor inicial da conta: ";
-            std::cin >> initialBalance;
-            bank->AddAccount(accountNumber, initialBalance);
-            std::cout << "Conta Cadastrada Com Sucesso!" << std::endl;
-            std::cout << "Conta adicionada!" << std::endl;
->>>>>>> hotfix/initialBalanceSimpleAccount
         } else if (option == 2) {
             std::cout << "Informe o número da conta a ser consultada: ";
             std::cin >> accountNumber;

@@ -35,13 +35,11 @@ public:
 
   ~Account() {}
 
-=======
   Account(int accountNumber, float initialBalance) {
     number = accountNumber;
     balance = initialBalance;
   }
   
->>>>>>> hotfix/initialBalanceSimpleAccount
   int GetNumber()
   {
     return number;
@@ -52,7 +50,7 @@ public:
     return balance;
   }
 
-  void Credit(int amount) {
+  void Credit(int amount) {    
     balance += amount;
   }
 

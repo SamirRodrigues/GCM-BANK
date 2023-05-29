@@ -3,9 +3,6 @@
 
 class BonusAccount : Account
 {
-protected:
-  int points;
-
 public:
   BonusAccount() : Account()
   {
@@ -19,5 +16,12 @@ public:
   }
   int GetPoints() const {
     return points;
+  }
+
+  void Credit(int amount) {
+    int newPoints;
+    newPoints = amount/150; // Recebe 1 ponto a cada 150 dinheiros recebidos.
+    AddPoints(newPoints);
+    balance += amount;
   }
 };
