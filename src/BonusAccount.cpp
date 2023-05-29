@@ -15,3 +15,10 @@ void BonusAccount::AddPoints(int pointsAmount) {
 int BonusAccount::GetPoints() const {
   return points;
 }
+
+void BonusAccount::Credit(int amount) {
+    int newPoints;
+    newPoints = amount/150; // Recebe 1 ponto a cada 150 dinheiros recebidos.
+    AddPoints(newPoints);
+    balance += amount;
+  }

@@ -11,8 +11,9 @@ public:
   BonusAccount();
   BonusAccount(int accountNumber);
   ~BonusAccount();
-  void AddPoints(int pointsAmount);
   int GetPoints() const;
+  void AddPoints(int pointsAmount);
+  void BonusAccount::Credit(int amount);
 };
 
 #endif // BONUS_ACCOUNT_HPP
