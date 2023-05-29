@@ -18,11 +18,22 @@ public:
     number = acountNumber;
     balance = 0.0f;
   }
+ 
+  Account(int accountNumber, int typeOfAccount, float initialBalance) {
+    number = accountNumber;
+    balance = initialBalance;
+    accountType = typeOfAccount;
+    points = 0;
+  }
+
+
 
   Account(int accountNumber, float initialBalance) {
     number = accountNumber;
     balance = initialBalance;
   }
+
+    ~Account() {}
   
   int GetNumber()
   {
@@ -34,7 +45,7 @@ public:
     return balance;
   }
 
-  void Credit(int amount) {
+  void Credit(int amount) {    
     balance += amount;
   }
 

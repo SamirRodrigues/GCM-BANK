@@ -10,12 +10,12 @@ enum accountTypes
 void CadastrarConta(Bank *bank) {
   int accountType;
   float initialBalance;
-
+  int accountNumber;
+  
   while (true)
   {
-    
     std::cout << "Escolha o Tipo de Conta" << std::endl;
-    std::cout << "1- Conta Comum" << std::endl;
+    std::cout << "1- Conta Simples" << std::endl;
     std::cout << "2- Conta Bonus" << std::endl;
     std::cout << "3- Conta Poupança" << std::endl;
     std::cout << "=> ";    
@@ -33,8 +33,6 @@ void CadastrarConta(Bank *bank) {
         break;
     }
   }  
-
-  int accountNumber;
 
   std::cout << "Digite o Número da Conta" << std::endl;
   std::cout << "=> ";
