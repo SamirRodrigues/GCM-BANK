@@ -2,7 +2,7 @@ CXX = g++
 CXXFLAGS = -Wall -Werror -Wextra -pedantic -std=c++17 -g -fsanitize=address
 LDFLAGS =  -fsanitize=address
 
-SRC = Account.cpp Bank.cpp Main.cpp
+SRC = Account.cpp Bank.cpp Main.cpp BonusAccount.cpp
 # SRCTEST = Account.cpp Bank.cpp test/test.cpp
 OBJ = $(SRC:.cc=.o)
 OBJTEST = $(SRCTEST:.cc=.o)
