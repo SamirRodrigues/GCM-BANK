@@ -1,9 +1,10 @@
 #include "Bank.cpp"
 
 void run() {
+
     Bank GCMBank;
     int option = 1;
-    int accountNumber,accountNumberDebit , moneyAccount;
+    int accountNumber,accountNumberDebit , moneyAccount, initialBalance;
 
     while(option != 0) {
         std::cout << std::endl << "==============================" << std::endl;
@@ -20,7 +21,10 @@ void run() {
         if(option == 1) {
             std::cout << "Insira um número para a conta: ";
             std::cin >> accountNumber;
-            GCMBank.AddAccount(accountNumber);
+            std::cout << "Insira o valor inicial da conta: ";
+            std::cin >> initialBalance;
+            bank->AddAccount(accountNumber, initialBalance);
+            std::cout << "Conta Cadastrada Com Sucesso!" << std::endl;
             std::cout << "Conta adicionada!" << std::endl;
         } else if (option == 2) {
             std::cout << "Informe o número da conta a ser consultada: ";
