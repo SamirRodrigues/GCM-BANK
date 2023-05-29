@@ -1,78 +1,67 @@
-#include <iostream>
+#include "../libs/Account.hpp"
 
-class Account {
-protected:
-  int number;
-  float balance;
-  int points;
-  
-  enum accountType
-  {
-    simple = 1,
-    bonus,
-    savings
+Account::Account() {
+  number = 0;
+  balance = 0.0f;
+}
+
+Account::Account(int accountNumber) {
+  number = accountNumber;
+  balance = 0.0f;
+}
+
+Account::Account(int accountNumber, int typeOfAccount) {
+  number = accountNumber;
+  balance = 0.0f;
+  accountType = typeOfAccount;
+  points = 0;
+}
+
+Account::Account(int accountNumber, int typeOfAccount, float initialBalance) {
+  number = accountNumber;
+  balance = initialBalance;
+  accountType = typeOfAccount;
+  points = 0;
+}
+
+Account::~Account() {}
+
+int Account::GetNumber() {
+  return number;
+}
+
+float Account::GetBalance() {
+  return balance;
+}
+
+void Account::Credit(int amount) {
+  balance += amount;
+}
+
+void Account::Debit(int amount) {
+  if (amount <= balance) {
+    balance -= amount;
   }
-
-public:
-
-  Account() {
-    number = 0;
-    balance = 0.0f;
-  }
-
-  Account (int accountNumber) {
-    number = accountNumber;
-    balance= 0.0f;
-  }
-
-  Account(int accountNumber, int typeOfAccount) {
-    number = accountNumber;
-    balance = 0.0f;
-    accountType = typeOfAccount;
-    points = 0;
-  }
- 
-  Account(int accountNumber, int typeOfAccount, float initialBalance) {
-    number = accountNumber;
-    balance = initialBalance;
-    accountType = typeOfAccount;
-    points = 0;
-  }
-
-  ~Account() {}
-
-  int GetNumber()
-  {
-    return number;
-  }
-
-  float GetBalance()
-  {
-    return balance;
-  }
-
-  void Credit(int amount) {
-    balance += amount;
-  }
-
-  void Debit(int amount) {
-    if(amount <= balance) {
+  if (amount >= balance) {
+    if (amount - balance <= negativeLimit) {
       balance -= amount;
     } else {
-      std::cout << "Saldo em conta insuficiente!" << std::endl;
+      std::cout << "Não é possível debitar da sua conta. Seu limite de transferência é " << balance + (negativeLimit * (-1)) << std::endl;
     }
-  }
 
-  void AddPoints(int pointsAmount) {
-    points += pointsAmount;
-    std::cout << "Novo saldo de pontos na conta é: " << points << std::endl;
+    std::cout << "Saldo em conta insuficiente!" << std::endl;
   }
+}
 
-  int GetType() {
-    return accountType;
-  }
+void Account::AddPoints(int pointsAmount) {
+  points += pointsAmount;
+  std::cout << "Novo saldo de pontos na conta é: " << points << std::endl;
+}
 
-  void Yield(float amount) {
-    balance += ((balance * amount) / 100);
-  }
-};
+int Account::GetType() {
+  return accountType;
+}
+
+void Account::Yield(float amount) {
+  balance += ((balance * amount) / 100);
+}

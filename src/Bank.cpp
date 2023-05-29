@@ -1,150 +1,105 @@
-#include <list>
-#include "Account.cpp"
-#include "BonusAccount.cpp"
-#include "SavingsAccount.cpp"
+#include "../libs/Bank.hpp"
 
-class Bank
-{
-private:
-  std::list<Account> accounts;
-  std::list<Account>::iterator account;
+Bank::Bank() {}
 
-  enum accountTypes
-  {
-    SIMPLE = 1,
-    BONUS,
-    SAVINGS
-  } 
-  
-public:
+Bank::~Bank() {}
 
-
-
-  Bank()  {  }
-
-  ~Bank()  {  }
-
-  bool AddAccount(int accountNumber, int accountType, float initialBalance)
-  {   
-
-    switch (accountType)
-    {
-      case SIMPLE
+void Bank::AddAccount(int accountNumber, int accountType, float initialBalance) {
+  switch (accountType) {
+    case SIMPLE: {
       Account account(accountNumber, accountType, initialBalance);
-        break;
-      
-      case BONUS
+      accounts.push_back(account);
+      break;
+    }
+    case BONUS: {
       Account account(accountNumber, accountType, initialBalance);
       account.AddPoints(10);
-        break;
-      
-      case SAVINGS;
+      accounts.push_back(account);
+      break;
+    }
+    case SAVINGS: {
       Account account(accountNumber, accountType, initialBalance);
-        break;
-
-      default:
-        break;
+      accounts.push_back(account);
+      break;
     }
+    default:
+      break;
+  }
+}
 
-    accounts.push_back(account);
+float Bank::GetBalance(int accountNumber) {
+  account = FindAccount(accountNumber);
+  return account->GetBalance();
+}
 
-    return true;
+void Bank::CreditAccount(int accountNumber, int value) {
+  account = FindAccount(accountNumber);
+  if (value < 0) {
+    std::cout << "Valor informado não pode ser negativo, favor realizar operação novamente" << std::endl;
+  } else {
+    account->Credit(value);
   }
 
-  float GetBalance(int accountNumber)
-  {
-    account = FindAccount(accountNumber);
-    return account->GetBalance();
+  if (account->GetType() == BONUS) {
+    int points = value / 100;
+    account->AddPoints(points);
+  }
+}
+
+void Bank::DebitAccount(int accountNumber, int value) {
+  account = FindAccount(accountNumber);
+  account->Debit(value);
+}
+
+std::list<Account>::iterator Bank::FindAccount(int accountNumber) {
+  std::list<Account>::iterator account_ptr;
+  std::list<Account>::iterator it_begin = accounts.begin();
+  std::list<Account>::iterator it_end = accounts.end();
+
+  while (it_begin != it_end) {
+    if (accountNumber == it_begin->GetNumber()) {
+      return it_begin;
+    }
+    it_begin++;
   }
 
-  void CreditAccount(int accountNumber, int value)
-  {
-    account = FindAccount(accountNumber);
-    if (value < 0)
-    {
-      std::cout << "Valor informado não pode ser negativo, favor realizar operação novamente" << std::endl;
-    }
-    else
-    {
-      account->Credit(value);
-    }
+  return it_end;
+}
 
-    if (account->GetType() == BONUS)
-    {
-      int points = value / 100;
-      account->AddPoints(points);
-    }
+bool Bank::Transfer(int accountNumberDebit, int accountNumberCredit, int amount) {
+  // account debit -> conta que será debitada
+  std::list<Account>::iterator accountDebit = FindAccount(accountNumberDebit);
+  // account credit -> conta que será creditada
+  std::list<Account>::iterator accountCredit = FindAccount(accountNumberCredit);
+
+  if (accountDebit->GetBalance() < amount) {
+    std::cout << "A conta de origem não possui saldo suficiente, favor realizar operação com valor válido" << std::endl;
+    return false;
   }
 
-  void DebitAccount(int accountNumber, int value)
-  {
-    
-    account = FindAccount(accountNumber);
-    account->Debit(value);
+  if (accountCredit->GetNumber() == 0 || accountDebit->GetNumber() == 0) {
+    std::cout << "Conta Não Cadastrada!" << std::endl;
+    return false;
   }
 
-  std::list<Account>::iterator FindAccount(int accountNumber)
-  {
-    std::list<Account>::iterator account_ptr;
-    std::list<Account>::iterator it_begin = accounts.begin();
-    std::list<Account>::iterator it_end = accounts.end();
+  accountDebit->Debit(amount);
+  accountCredit->Credit(amount);
 
-    while (it_begin != it_end)
-    {
-      if (accountNumber == it_begin->GetNumber())
-      {
-        return it_begin;
-      }
-      it_begin++;
-    }
-
-    return it_end;
+  if (accountCredit->GetType() == BONUS) {
+    int points = amount / 200;
+    accountCredit->AddPoints(points);
   }
 
-  bool Transfer(int accountNumberDebit, int accountNumberCredit, int amount)
-  {
-    // account debit -> conta que será debitada
-    std::list<Account>::iterator accountDebit = FindAccount(accountNumberDebit);
-    // account credit -> conta que será creditada
-    std::list<Account>::iterator accountCredit = FindAccount(accountNumberCredit);
+  return true;
+}
 
-    if (accountDebit->GetBalance() < amount)
-    {
-      std::cout << "A conta de origem não possui saldo suficiente, favor realizar operação com valor válido" << std::endl;
-      return false;
-    }
+void Bank::ApplyYield(int accountNumber, float value) {
+  account = FindAccount(accountNumber);
 
-    if (accountCredit->GetNumber() == 0 || accountDebit->GetNumber() == 0)
-    {
-      std::cout << "Conta Não Cadastrada!" << std::endl;
-      return false;
-    }
-
-    accountDebit->Debit(amount);
-    accountCredit->Credit(amount);
-
-    if (accountCredit->GetType() == BONUS)
-    {
-
-      int points = amount / 200;
-      accountCredit->AddPoints(points);
-    }
-
-    return true;
+  if (account->GetType() == SAVINGS) {
+    account->Yield(value);
+    std::cout << "Juros Aplicado com Sucesso" << std::endl;
+  } else {
+    std::cout << "É preciso Possuir uma Conta Poupança para Render Juros" << std::endl;
   }
-
-  void ApplyYield(int accountNumber, float value)
-  {
-    account = FindAccount(accountNumber);
-
-    if (account->GetType() == SAVINGS)
-    {
-      account->Yield(value);
-      std::cout << "Juros Aplicado com Sucesso" << std::endl;
-    }
-    else
-    {
-      std::cout << "É preciso Possuir uma Conta Poupança para Render Juros" << std::endl;
-    }
-  }
-};
+}
