@@ -5,6 +5,13 @@
 
 class Account {
 protected:
+
+  enum accountTypes
+  {
+    SIMPLE = 1,
+    BONUS = 2,
+    SAVINGS = 3
+  }; 
   int number;
   float balance;
   int points;
@@ -12,6 +19,7 @@ protected:
   int accountType;
 
 public:
+
   Account();
   Account(int accountNumber);
   Account(int accountNumber, int typeOfAccount);
@@ -19,13 +27,14 @@ public:
   Account(int accountNumber, int typeOfAccount, float initialBalance);
   ~Account();
 
+  int GetType();
   int GetNumber();
   float GetBalance();
-  void Credit(int amount);
+  int GetAccountNumber();
   void Debit(int amount);
-  void AddPoints(int pointsAmount);
-  int GetType();
+  void Credit(int amount);
   void Yield(float amount);
+  void AddPoints(int pointsAmount);
 };
 
 #endif // ACCOUNT_HPP

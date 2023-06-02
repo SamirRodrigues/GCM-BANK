@@ -31,6 +31,10 @@ Account::Account(int accountNumber,  float initialBalance) {
 
 Account::~Account() {}
 
+int Account::GetAccountNumber() {
+    return number;
+}
+
 int Account::GetNumber() {
   return number;
 }

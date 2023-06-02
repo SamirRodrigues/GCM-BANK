@@ -21,13 +21,15 @@ public:
   Bank();
   ~Bank();
 
-  void AddAccount(int accountNumber, int accountType, float initialBalance);
+  int GetNumAccounts() const;
   float GetBalance(int accountNumber);
-  void CreditAccount(int accountNumber, int value);
-  void DebitAccount(int accountNumber, int value);
-  std::list<Account>::iterator FindAccount(int accountNumber);
-  bool Transfer(int accountNumberDebit, int accountNumberCredit, int amount);
   void ApplyYield(int accountNumber, float value);
+  void DebitAccount(int accountNumber, int value);
+  void CreditAccount(int accountNumber, int value);
+  std::list<Account>::iterator GetEndAccountsList();
+  std::list<Account>::iterator FindAccount(int accountNumber);
+  void AddAccount(int accountNumber, int accountType, float initialBalance);
+  bool Transfer(int accountNumberDebit, int accountNumberCredit, int amount);
 };
 
 #endif // BANK_HPP

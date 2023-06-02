@@ -4,6 +4,10 @@ Bank::Bank() {}
 
 Bank::~Bank() {}
 
+int Bank::GetNumAccounts() const {
+    return accounts.size();
+}
+
 void Bank::AddAccount(int accountNumber, int accountType, float initialBalance) {
   switch (accountType) {
     case SIMPLE: {
@@ -64,6 +68,10 @@ std::list<Account>::iterator Bank::FindAccount(int accountNumber) {
   }
 
   return it_end;
+}
+
+std::list<Account>::iterator Bank::GetEndAccountsList(){
+  return accounts.end();
 }
 
 bool Bank::Transfer(int accountNumberDebit, int accountNumberCredit, int amount) {

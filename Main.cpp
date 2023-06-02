@@ -79,7 +79,7 @@ void run() {
 
     Bank GCMBank;
     int option = 1;
-    int accountNumber,accountNumberDebit , moneyAccount, initialBalance;
+    int accountNumber,accountNumberDebit , moneyAccount;
 
     while(option != 0) {
         std::cout << std::endl << "==============================" << std::endl;
