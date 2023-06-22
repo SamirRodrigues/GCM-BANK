@@ -28,6 +28,7 @@ public:
   ~Account();
 
   int GetType();
+  float GetPoints();
   int GetNumber();
   float GetBalance();
   int GetAccountNumber();

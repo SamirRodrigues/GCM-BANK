@@ -71,6 +71,10 @@ int Account::GetType() {
   return accountType;
 }
 
+float Account::GetPoints() {
+  return points;
+}
+
 void Account::Yield(float amount) {
   balance += ((balance * amount) / 100);
 }

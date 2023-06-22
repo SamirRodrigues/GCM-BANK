@@ -21,7 +21,9 @@ public:
   Bank();
   ~Bank();
 
+  int GetAccountType(int accountNumber);
   int GetNumAccounts() const;
+  float GetAccountPoints(int accountNumber);
   float GetBalance(int accountNumber);
   void ApplyYield(int accountNumber, float value);
   void DebitAccount(int accountNumber, int value);

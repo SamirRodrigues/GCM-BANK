@@ -36,6 +36,16 @@ float Bank::GetBalance(int accountNumber) {
   return account->GetBalance();
 }
 
+int Bank::GetAccountType(int accountNumber) {
+  account = FindAccount(accountNumber);
+  return account->GetType();
+}
+
+float Bank::GetAccountPoints(int accountNumber) {
+  account = FindAccount(accountNumber);
+  return account->GetPoints();
+}
+
 void Bank::CreditAccount(int accountNumber, int value) {
   account = FindAccount(accountNumber);
   if (value < 0) {
