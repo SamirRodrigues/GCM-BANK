@@ -87,6 +87,17 @@ bool testCreditAccount() {
     return (newBalance == 150.0);
 }
 
+// Teste para a função CreditAccount em caso de parâmetro negativo
+bool testCreditAccountNegativePar() {
+    Bank bank;
+    bank.AddAccount(1, SIMPLE, 100.0);
+
+    bank.CreditAccount(1, -50.0);
+    double newBalance = bank.GetBalance(1);
+    // Como é negativo, o saldo não deve ser alterado
+    return (newBalance == 100.0);
+}
+
 // Teste para a função DebitAccount
 bool testDebitAccount() {
     Bank bank;
@@ -96,6 +107,28 @@ bool testDebitAccount() {
     double newBalance = bank.GetBalance(1);
 
     return (newBalance == 50.0);
+}
+
+// Teste para a função DebitAccount em caso de parâmetro negativo
+bool testDebitAccountNegativePar() {
+    Bank bank;
+    bank.AddAccount(1, SIMPLE, 100.0);
+
+    bank.DebitAccount(1, -50.0);
+    double newBalance = bank.GetBalance(1);
+    // Como é negativo, o saldo deve permanecer o mesmo
+    return (newBalance == 100.0);
+}
+
+// Teste para DebitAccount no caso do saldo ficar negativo
+bool testDebitAccountNegativeBalance() {
+    Bank bank;
+    bank.AddAccount(1, SIMPLE, 100.0);
+
+    bank.DebitAccount(1, 200.0);
+    double newBalance = bank.GetBalance(1);
+    // Como é negativo, o saldo deve permanecer o mesmo
+    return (newBalance == 100.0);
 }
 
 // Teste para a função Transfer
@@ -109,6 +142,32 @@ bool testTransfer() {
     double balance2 = bank.GetBalance(2);
 
     return (balance1 == 50.0 && balance2 == 250.0);
+}
+
+// Teste para Transfer caso parâmetro negativo
+bool testTransferNegativePar() {
+    Bank bank;
+    bank.AddAccount(1, SIMPLE, 100.0);
+    bank.AddAccount(2, SIMPLE, 200.0);
+
+    bank.Transfer(1, 2, -50.0);
+    double balance1 = bank.GetBalance(1);
+    double balance2 = bank.GetBalance(2);
+
+    return (balance1 == 100.0 && balance2 == 200.0);
+}
+
+// Teste para Transfer caso saldo fique negativo
+bool testTransferNegativeBalance() {
+    Bank bank;
+    bank.AddAccount(1, SIMPLE, 100.0);
+    bank.AddAccount(2, SIMPLE, 200.0);
+
+    bank.Transfer(1, 2, -150.0);
+    double balance1 = bank.GetBalance(1);
+    double balance2 = bank.GetBalance(2);
+    
+    return (balance1 == 100.0 && balance2 == 200.0);
 }
 
 // Teste para a função GetBalance
@@ -128,11 +187,26 @@ int main() {
     bool creditAccountTestResult = testCreditAccount();
     printTestResult(creditAccountTestResult, "Teste da função CreditAccount");
 
+    bool creditAccountTestResultNegativePar = testCreditAccountNegativePar();
+    printTestResult(creditAccountTestResultNegativePar, "Teste da função CreditAccount caso de o parâmetro ser negativo");
+
     bool debitAccountTestResult = testDebitAccount();
     printTestResult(debitAccountTestResult, "Teste da função DebitAccount");
 
+    bool debitAccountTestResultNegativePar = testDebitAccountNegativePar();
+    printTestResult(debitAccountTestResultNegativePar, "Teste da função DebitAccount caso de o parâmetro ser negativo");
+
+    bool debitAccountTestResultNegativeBalance = testDebitAccountNegativeBalance();
+    printTestResult(debitAccountTestResultNegativeBalance, "Teste da função DebitAccount caso o saldo fique negativo");
+
     bool transferTestResult = testTransfer();
     printTestResult(transferTestResult, "Teste da função Transfer");
+
+    bool transferTestResultNegativePar = testTransferNegativePar();
+    printTestResult(transferTestResultNegativePar, "Teste da função Transfer caso de o parâmetro ser negativo");
+    
+    bool transferTestResultNegativeBalance = testTransferNegativeBalance();
+    printTestResult(transferTestResultNegativeBalance, "Teste da função Transfer caso de o saldo fique negativo");
 
     bool getBalanceTestResult = testGetBalance();
     printTestResult(getBalanceTestResult, "Teste da função GetBalance");
