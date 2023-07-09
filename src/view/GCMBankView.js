@@ -1,4 +1,4 @@
-const Bank = require('../model/Bank.js');
+const Bank = require('../controller/Bank.js');
 const Account = require('../model/Account.js');
 const prompt = require("prompt-sync")();
 
@@ -34,7 +34,7 @@ do {
                 amountToCredit = prompt("Insira o valor de crédito: ");
             }
         }
-        accountReturned.deposit(amountToCredit);
+        accountReturned.credit(amountToCredit);
     } else if (option == 4) {
         let accountToConsult = prompt("Informe o número da conta a ser debitada: ");
         let amountToDebit= prompt("Informe valor a ser debitado: ");

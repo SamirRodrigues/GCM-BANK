@@ -12,15 +12,23 @@ class Account {
         return this.balance;
     }
 
-    credit(amount) {
+    credit(amount) {        
         if(amount >= 0) {
             this.balance += parseFloat(amount);
+        }
+        else
+        {
+            throw new Error("Não é possível creditar valores negativos");
         }
     }
 
     debit(amount) {
-        if(amount < this.balance) {
+        if(amount <= this.balance && amount >= 0) {
             this.balance -= parseFloat(amount);
+        }
+        else
+        {
+            throw new Error("Não é possível debitar o valor solicitado, pois o saldo ficará negativo");
         }
     }
 

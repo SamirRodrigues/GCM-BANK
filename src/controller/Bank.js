@@ -58,11 +58,22 @@ class Bank {
     transfer(fromAccount, toAccount, amount) {
         var fromAccountReturn, toAccountReturn;
 
+        if(amount < 0)
+        {         
+            throw new Error("Não é possível realizar trasnferencia de valor negativo");
+        }
+
+        if(this.getAccount(fromAccount).getBalance() - amount < 0)
+        {
+            throw new Error("Não é possível realizar trasnferencia pois o saldo da conta ficará negativo");
+        }
+
         this.accounts.forEach(account => {
             if(account.number == fromAccount) {
                 fromAccountReturn = account;
             }
         });
+
         if(fromAccountReturn) {
             fromAccountReturn.debit(amount);
         }
@@ -72,11 +83,12 @@ class Bank {
                 toAccountReturn = account;
             }
         });
+        
         if(toAccountReturn) {
             if(toAccountReturn.type == 'bonusAccount') {
                 toAccountReturn.depositByTransfer(amount);
             } else {
-                toAccountReturn.deposit(amount);
+                toAccountReturn.credit(amount);
             }
         }
     }
