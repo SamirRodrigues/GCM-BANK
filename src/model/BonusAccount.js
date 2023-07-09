@@ -8,6 +8,10 @@ class BonusAccount extends Account {
         this.type = 'bonusAccount';
     }
 
+    getPoints() {
+        return this.points;
+    }
+
     credit(amount) {
         if(amount >= 0) {
             let pointsToAdd = parseInt(amount/100);
