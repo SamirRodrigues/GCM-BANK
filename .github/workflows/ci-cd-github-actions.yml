@@ -21,7 +21,7 @@ jobs:
       run: yarn install
 
     - name: Build
-      run: yarn build
+      run: yarn start
 
     - name: Executar testes unitários
       run: yarn test
