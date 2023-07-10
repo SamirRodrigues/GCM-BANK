@@ -27,7 +27,9 @@ jobs:
       run: yarn test
 
     - name: Create tag
-      run: |
+      run: | 
         BUILD_NUMBER=$((`git tag | grep -E '^build-[0-9]+$' | sed 's/^build-//' | sort -nr | head -n1`+1))
         git tag build-$BUILD_NUMBER
         git push --tags
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
