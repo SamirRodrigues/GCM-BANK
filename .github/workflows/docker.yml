@@ -6,11 +6,12 @@ on:
       - 'rel-*'
 
 jobs:
-  release:
+  release:   
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout v2
+      uses: actions/checkout@v2
 
     - name: Use Node.js
       uses: actions/setup-node@v2
@@ -38,11 +39,14 @@ jobs:
         name: system
         path: ./release.zip
 
+    - name: Checkout v3
+      uses: actions/checkout@v3
+
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ secrets.DOCKER_USER }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
         
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
@@ -56,4 +60,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKER_USER }}/clockbox:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
