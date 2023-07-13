@@ -1,4 +1,4 @@
-name: Release
+name: Release Candidate
 
 on:
   push:
@@ -28,10 +28,13 @@ jobs:
 
     - name: Run tests
       run: yarn test
-
-    - name: Create release
-      uses: softprops/action-gh-release@v1
+      
+    - name: Zip artifact
+      run: zip -r release.zip .
+      
+    - name: Upload artifact
+      uses: actions/upload-artifact@v2
       with:
-        files: build/*.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}
+        name: node-app
+        path: ./release.zip
+
