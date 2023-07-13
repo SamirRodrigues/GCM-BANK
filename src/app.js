@@ -13,4 +13,4 @@ app.use(router);
 /**
  * Start server
  */
-app.listen(3001, () => console.log("Server is Running! 🤌"));
+app.listen(8080, () => console.log("Server is Running! 🤌"));
